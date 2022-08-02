@@ -185,7 +185,6 @@ export default {
 				this.paymentStatus = data?.data?.data?.status;
 				this.showAcknowledgement = true;
 			}
-			console.log(data);
 			return data;
 		},
 		onError(data) {

@@ -56,7 +56,6 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
-
   env: {
     APP_CLIENT_ID: process.env.APP_CLIENT_ID || 'merchant_dashboard',
     APP_CLIENT_KEY: process.env.APP_CLIENT_KEY || 'merchant_dashboard',
