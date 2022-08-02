@@ -45,7 +45,6 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module',
     '@nuxtjs/tailwindcss'
   ],
 
@@ -59,20 +58,20 @@ export default {
   },
 
   env: {
-    APP_CLIENT_ID: process.env.APP_CLIENT_ID,
-    APP_CLIENT_KEY: process.env.APP_CLIENT_KEY,
-    APP_CLIENT_SECRET: process.env.APP_CLIENT_SECRET
+    APP_CLIENT_ID: process.env.APP_CLIENT_ID || 'merchant_dashboard',
+    APP_CLIENT_KEY: process.env.APP_CLIENT_KEY || 'merchant_dashboard',
+    APP_CLIENT_SECRET: process.env.APP_CLIENT_SECRET || '1kLKaAyxeMb3=M1290647xs'
   }, 
 
   publicRuntimeConfig: {
       axios: {
-        browserBaseURL: process.env.APP_API_URL,
+        browserBaseURL: process.env.APP_API_URL || 'https://staging-api.useklump.com/v1',
       }
     },
 
     privateRuntimeConfig: {
       axios: {
-        baseURL: process.env.APP_API_URL,
+        baseURL: process.env.APP_API_URL || 'https://staging-api.useklump.com/v1',
       }
     },
 }
