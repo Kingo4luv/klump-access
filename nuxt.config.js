@@ -30,7 +30,14 @@ export default {
 				rel: 'stylesheet',
 				href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap'
 			}
-		]
+		],
+    script: [{
+      src: process.env.VUE_APP_NODE_ENV === 'production' ?
+        'https://js.useklump.com/klump.js' :
+        'https://staging-js.useklump.com/klump.js',
+      ssr: false,
+      body: true
+    }]
 	},
 
 	// Global CSS: https://go.nuxtjs.dev/config-css
@@ -45,7 +52,6 @@ export default {
 	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
 	buildModules: [
 		// https://go.nuxtjs.dev/eslint
-		'@nuxtjs/eslint-module',
 		'@nuxtjs/tailwindcss'
 	],
 
