@@ -1,0 +1,14 @@
+{
+  "apps": [{
+    "name": "klump-access",
+    "exec_mode": "cluster",
+    "instances": "max",
+    "script": "./node_modules/nuxt/bin/nuxt.js",
+    "args": "start",
+    "log_date_format": "YYYY-MM-DD HH:mm",
+    "env": {
+      "NODE_ENV": "staging",
+      "PORT": 3001
+    }
+  }]
+}

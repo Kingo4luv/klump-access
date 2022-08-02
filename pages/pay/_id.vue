@@ -22,21 +22,8 @@
 					/>
 				</div>
 				<div class="mt-6 bg-white shadow-md px-4 sm:px-6 py-3 md:py-6">
-					<div v-if="!pageData.is_fixed_amount" class="space-y-1 mt-2 mb-4">
-						<label for="itemName" class="text-base">What are you paying for?</label>
-						<input
-							id="itemName"
-							v-model="itemName"
-							placeholder="Enter Item name"
-							type="text"
-							class="w-full py-2 bg-gray-100 border text-base md:text-lg leading-7 px-2 text-[#353535] h-[52.08px] placeholder-[#A1A1A1]"
-						/>
-						<span v-if="formError.itemName !== ''" class="text-xs text-red-500">{{
-							formError.itemName
-						}}</span>
-					</div>
+					<label for="amount" class="text-base">Amount to be charged</label>
 					<div class="space-y-1 mt-2 mb-4">
-						<label for="amount" class="text-base">Amount to be charged</label>
 						<input
 							id="amount"
 							v-model="amount"
@@ -45,7 +32,7 @@
 							:placeholder="formatAmount"
 							class="w-full py-2 bg-gray-100 border text-base md:text-lg leading-7 px-2 text-[#353535] h-[52.08px] placeholder-[#A1A1A1]"
 						/>
-						<span v-if="formError.amount !== ''" class="text-xs text-red-500">{{ formError.amount }}</span>
+						<span v-if="formError !== ''" class="text-xs text-red-500">{{ formError }}</span>
 					</div>
 					<div id="klump__checkout" tabindex="0" @click="pay"></div>
 				</div>
@@ -73,9 +60,10 @@ export default {
 	// This gets page data on server side before page loads
 	async asyncData({ params, $axios, error }) {
 		try {
-			$axios.setHeader('Client-Id', process.env.VUE_APP_CLIENT_ID);
-			$axios.setHeader('Client-Key', process.env.VUE_APP_CLIENT_KEY);
-			$axios.setHeader('Client-Secret', process.env.VUE_APP_CLIENT_SECRET);
+			
+			$axios.setHeader('Client-Id', 'merchant_dashboard');
+			$axios.setHeader('Client-Key', 'merchant_dashboard');
+			$axios.setHeader('Client-Secret', '1kLKaAyxeMb3=M1290647xs');
 			const data = await $axios.$get(`/payment-pages/${params.id}`);
 			const pageData = data.data;
 			return { pageData };
@@ -85,11 +73,7 @@ export default {
 	},
 	data() {
 		return {
-			itemName: '',
-			formError: {
-				amount: '',
-				itemName: ''
-			},
+			formError: '',
 			pageData: null,
 			pageError: null,
 			amount: '',
@@ -185,6 +169,7 @@ export default {
 				this.paymentStatus = data?.data?.data?.status;
 				this.showAcknowledgement = true;
 			}
+			console.log(data);
 			return data;
 		},
 		onError(data) {
@@ -205,37 +190,19 @@ export default {
 		},
 		pay() {
 			const amount = this.pageData?.is_fixed_amount ? this.pageData.fixed_amount : this.amount;
-			const title = this.pageData?.is_fixed_amount ? this.pageData.title : this.itemName;
-			// This checks of title is available
-			if (title === '') {
-				this.formError.itemName = 'Item name is required';
-				setTimeout(() => {
-					this.formError = {
-						amount: '',
-						itemName: ''
-					};
-				}, 3000);
-				return false;
-			}
 			// This checks of amount is an empty string
 			if (amount === '') {
-				this.formError.amount = 'Amount to charge is required';
+				this.formError = 'Amount to charge is required';
 				setTimeout(() => {
-					this.formError = {
-						amount: '',
-						itemName: ''
-					};
+					this.formError = '';
 				}, 3000);
 				return false;
 			}
 			// This checks of amount is a number
 			if (isNaN(Number(amount))) {
-				this.formError.amount = 'Amount to charge must be a number';
+				this.formError = 'Amount to charge must be a number';
 				setTimeout(() => {
-					this.formError = {
-						amount: '',
-						itemName: ''
-					};
+					this.formError = '';
 				}, 3000);
 				return false;
 			}
@@ -244,7 +211,7 @@ export default {
 				currency: this.pageData.currency,
 				items: [
 					{
-						name: title,
+						name: this.pageData.name,
 						unit_price: amount,
 						quantity: 1
 					}

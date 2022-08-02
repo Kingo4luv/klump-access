@@ -1,76 +1,75 @@
 export default {
-  // Target: https://go.nuxtjs.dev/config-target
-  target: 'server',
+	// Target: https://go.nuxtjs.dev/config-target
+	target: 'server',
 
-  // Global page headers: https://go.nuxtjs.dev/config-head
-  head: {
-    htmlAttrs: {
-      lang: 'en'
-    },
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'format-detection', content: 'telephone=no' }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        rel: 'preconnect', href: 'https://fonts.googleapis.com'
-      },
-      {
-       href: 'https://fonts.gstatic.com', crossOrigin: true
-      },
-      {
-        rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap'
-      }
-    ],
-    script: [{
-      src: process.env.APP_NODE_ENV === 'production' ? 'https://js.useklump.com/klump.js' : 'https://staging-js.useklump.com/klump.js',
-      ssr: false,
-      body: true
-    }]
-  },
+	server: {
+		port: 3001 // default: 3000
+	},
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-  ],
+	// Global page headers: https://go.nuxtjs.dev/config-head
+	head: {
+		htmlAttrs: {
+			lang: 'en'
+		},
+		meta: [
+			{ charset: 'utf-8' },
+			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
+			{ name: 'format-detection', content: 'telephone=no' }
+		],
+		link: [
+			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+			{
+				rel: 'preconnect',
+				href: 'https://fonts.googleapis.com'
+			},
+			{
+				href: 'https://fonts.gstatic.com',
+				crossOrigin: true
+			},
+			{
+				rel: 'stylesheet',
+				href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap'
+			}
+		]
+	},
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-  ],
+	// Global CSS: https://go.nuxtjs.dev/config-css
+	css: [],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
+	plugins: [],
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-    // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/tailwindcss'
-  ],
+	// Auto import components: https://go.nuxtjs.dev/config-components
+	components: true,
 
-  // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    '@nuxtjs/axios',
-  ],
+	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
+	buildModules: [
+		// https://go.nuxtjs.dev/eslint
+		'@nuxtjs/eslint-module',
+		'@nuxtjs/tailwindcss'
+	],
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  },
-  env: {
-    APP_CLIENT_ID: process.env.APP_CLIENT_ID || 'merchant_dashboard',
-    APP_CLIENT_KEY: process.env.APP_CLIENT_KEY || 'merchant_dashboard',
-    APP_CLIENT_SECRET: process.env.APP_CLIENT_SECRET || '1kLKaAyxeMb3=M1290647xs'
-  }, 
+	// Modules: https://go.nuxtjs.dev/config-modules
+	modules: ['@nuxtjs/axios'],
 
-  publicRuntimeConfig: {
-      axios: {
-        browserBaseURL: process.env.APP_API_URL || 'https://staging-api.useklump.com/v1',
-      }
-    },
+	// Build Configuration: https://go.nuxtjs.dev/config-build
+	build: {},
 
-    privateRuntimeConfig: {
-      axios: {
-        baseURL: process.env.APP_API_URL || 'https://staging-api.useklump.com/v1',
-      }
-    },
-}
+	env: {
+		VUE_APP_CLIENT_ID: process.env.VUE_APP_CLIENT_ID,
+		VUE_APP_CLIENT_KEY: process.env.VUE_APP_CLIENT_KEY,
+		VUE_APP_CLIENT_SECRET: process.env.VUE_APP_CLIENT_SECRET
+	},
+
+	publicRuntimeConfig: {
+		axios: {
+			browserBaseURL: process.env.VUE_APP_API_URL
+		}
+	},
+
+	privateRuntimeConfig: {
+		axios: {
+			baseURL: process.env.VUE_APP_API_URL
+		}
+	}
+};
