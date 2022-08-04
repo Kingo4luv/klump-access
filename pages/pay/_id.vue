@@ -206,9 +206,9 @@ export default {
 		},
 		pay() {
 			const amount = this.pageData?.is_fixed_amount ? this.pageData.fixed_amount : this.amount;
-			const title = this.pageData?.is_fixed_amount ? this.pageData.title : this.itemName;
+			const name = this.pageData?.is_fixed_amount ? this.pageData?.name : this.itemName;
 			// This checks of title is available
-			if (title === '') {
+			if (name === '') {
 				this.formError.itemName = 'Item name is required';
 				setTimeout(() => {
 					this.formError = {
@@ -245,7 +245,7 @@ export default {
 				currency: this.pageData.currency,
 				items: [
 					{
-						name: title,
+						name,
 						unit_price: amount,
 						quantity: 1
 					}
